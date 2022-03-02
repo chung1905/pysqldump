@@ -12,6 +12,7 @@ dbname = os.getenv('db_name')
 
 # Parameters
 is_gzip = os.getenv('gzip', default=True)
+max_worker = os.getenv('max_worker', default=8)
 table_dump_query_params = "--single-transaction --quick --max_allowed_packet=512M"
 table_dump_query = f"mysqldump {table_dump_query_params} -p{password} -u{user} -h{host} {dbname} {{table}}"
 
@@ -60,13 +61,13 @@ async def worker(name: str, queue: asyncio.Queue):
         print(f'{name} finished table {t}.')
 
 
-async def run(tables: list):
+async def run(tables: list, max_worker: int):
     queue = asyncio.Queue()
     for table in tables:
         queue.put_nowait(table)
 
     tasks = []
-    for i in range(10):
+    for i in range(max_worker):
         task = asyncio.create_task(worker(f'worker-{i}', queue))
         tasks.append(task)
 
@@ -78,4 +79,4 @@ async def run(tables: list):
 
 
 tables = get_tables(host, user, password, dbname)
-asyncio.run(run(tables))
+asyncio.run(run(tables, max_worker))

@@ -11,6 +11,7 @@ db_host=xxx
 db_user=xxx
 db_password=xxx
 db_name=xxx
+max_worker=8
 ```
 
 ```shell
