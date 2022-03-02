@@ -14,9 +14,14 @@ db_name=xxx
 ```
 
 ```shell
-souce .env
+# Install venv (optional)
 python -m venv venv
 source ./venv/bin/activate
+
+# Install dependencies
 pip3 install -r requirements.txt
+
+# Run
+export $(cat .env)
 python3 pysqldump.py
 ```
