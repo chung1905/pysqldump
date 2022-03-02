@@ -20,9 +20,9 @@ output_dir = os.getenv('output_dir', default=f'output/{dbname}')
 if is_gzip:
     table_dump_query += f" | gzip -9 > {output_dir}/{{table}}.sql.gz"
 else:
-    table_dump_query += f" > {output_dir}/{dbname}/{{table}}.sql"
+    table_dump_query += f" > {output_dir}/{{table}}.sql"
 
-os.makedirs(f'{output_dir}/{dbname}', exist_ok=True)
+os.makedirs(f'{output_dir}', exist_ok=True)
 
 
 def get_tables(db_host: str, db_user: str, passwd: str, db_name: str):
