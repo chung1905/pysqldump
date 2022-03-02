@@ -15,13 +15,14 @@ is_gzip = os.getenv('gzip', default=True)
 max_worker = os.getenv('max_worker', default=8)
 table_dump_query_params = "--single-transaction --quick --max_allowed_packet=512M"
 table_dump_query = f"mysqldump {table_dump_query_params} -p{password} -u{user} -h{host} {dbname} {{table}}"
+output_dir = os.getenv('output_dir', default=f'output/{dbname}')
 
 if is_gzip:
-    table_dump_query += f" | gzip -9 > {dbname}/{{table}}.sql.gz"
+    table_dump_query += f" | gzip -9 > {output_dir}/{{table}}.sql.gz"
 else:
-    table_dump_query += f" > {dbname}/{{table}}.sql"
+    table_dump_query += f" > {output_dir}/{dbname}/{{table}}.sql"
 
-os.makedirs(f'output/{dbname}', exist_ok=True)
+os.makedirs(f'{output_dir}/{dbname}', exist_ok=True)
 
 
 def get_tables(db_host: str, db_user: str, passwd: str, db_name: str):
