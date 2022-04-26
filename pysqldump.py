@@ -80,4 +80,4 @@ async def run(tables: list, max_worker: int):
 
 
 tables = get_tables(host, user, password, dbname)
-asyncio.run(run(tables, max_worker))
+asyncio.run(run(tables, int(max_worker)))
