@@ -4,8 +4,10 @@ Parallel mysqldump in Python
 
 ## Getting started
 
-Can phai co mysqldump tren may
-Viet file `.env` theo mau~
+This script requires mysqldump.
+
+Copy this `.env` file and change its variables.
+
 ```shell
 db_host=xxx
 db_user=xxx
